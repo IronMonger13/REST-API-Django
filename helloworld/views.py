@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Post
 from .serializers import PostSerializer
+from .permissions import IsPostPossessor
 
 
 # Create your views here.
@@ -15,6 +16,6 @@ class HelloWorldView(APIView):
 
 
 class PostView(ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsPostPossessor]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
