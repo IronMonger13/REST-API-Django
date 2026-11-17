@@ -8,6 +8,8 @@ from rest_framework import filters
 from .models import Post
 from .serializers import PostSerializer
 from .permissions import IsPostPossessor
+from .filters import PostFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 # Create your views here.
@@ -19,7 +21,8 @@ class HelloWorldView(APIView):
 class PostView(ModelViewSet):
     permission_classes = [IsAuthenticated, IsPostPossessor]
     serializer_class = PostSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_class = PostFilter
     search_fields = ["title", "content"]
 
     def get_queryset(self):
