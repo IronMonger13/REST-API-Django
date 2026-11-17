@@ -17,10 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from rest_framework import routers
 
-from helloworld.views import HelloWorldView
+from helloworld.views import HelloWorldView, PostView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", HelloWorldView.as_view()),
 ]
+
+router = routers.SimpleRouter()
+router.register("post", PostView)
+
+urlpatterns += router.urls
