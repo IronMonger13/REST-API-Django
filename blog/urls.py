@@ -28,6 +28,6 @@ urlpatterns = [
 ]
 
 router = routers.SimpleRouter()
-router.register("post", PostView)
+router.register("post", PostView, basename="post")
 
 urlpatterns += router.urls
