@@ -21,9 +21,14 @@ class HelloWorldView(APIView):
 class PostView(ModelViewSet):
     permission_classes = [IsAuthenticated, IsPostPossessor]
     serializer_class = PostSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
     filterset_class = PostFilter
     search_fields = ["title", "content"]
+    ordering_fields = ["id"]
 
     def get_queryset(self):
         return Post.objects.filter(created_by=self.request.user)
